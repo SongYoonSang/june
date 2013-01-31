@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.june.app.dao.JobMapper">
+
+	<cache />
+
+	<resultMap type="JobInfo" id="jobInfo">
+		<result property="id" column="id" />
+		<result property="panNumber" column="pan_number" />
+		<result property="address" column="address" />
+		<result property="city" column="city" />
+		<result property="state" column="state" />
+		<result property="pincode" column="pincode" />
+	</resultMap>
+
+	<select id="selectAll" resultMap="jobInfo" parameterType="PageInfo">
+		<![CDATA[
+		SELECT 
+			id
+			,pan_number
+			,address
+			,city
+			,state
+			,pincode
+		
+		FROM JBT_MEM
+		where id not in ('22')  
+		ORDER BY id DESC
+		LIMIT #{currentPage}, #{pagePerCount}
+		
+		]]>
+	</select>
+	<select id="totalCount" resultType="int" parameterType="PageInfo">
+		<![CDATA[
+		SELECT count(*) 
+		FROM JBT_MEM  
+		]]>
+	</select>
+
+	<insert id="insert" parameterType="JobInfo">
+		<![CDATA[
+		insert into JBT_MEM values(#{id}, #{pan_number}, #{address}, #{city}, #{state}, #{pincode})
+		]]>		
+	</insert>
+
+	<update id="update" parameterType="JobInfo">
+		<![CDATA[
+		]]>	
+	</update>
+
+
+	<delete id="delete" parameterType="JobInfo">
+		<![CDATA[
+		]]>	
+	</delete>
+</mapper>

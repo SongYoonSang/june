@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	
+	<title>Websanova jQuery Pagination Plugin</title>
+
+	<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
+	
+	<link rel="Stylesheet" type="text/css" href="./css/wPaginate.css" />
+	<script type="text/javascript" src="../js/jquery/wPaginate.js"></script>
+	<script type="text/javascript" src="../js/RESTWithAjaxPagePlugin.js"></script>
+	<script type="text/javascript">
+	/* $(document).ready(function() {
+		var currentPageInput = $("#currentPage").val();
+		RestPost(currentPageInput, 5);
+		//alert(tt);
+		
+		var totCnt = $("#tot").val();		
+			//$('#wPaginate7').wPaginate('destroy');
+			$('#wPaginate7').wPaginate({
+				theme:'black', 
+				
+				total:totCnt, 
+				index:0,
+				limit:5, 
+				
+				ajax: true,
+				//spread: 3,
+				url : function(page){
+					RestPost(page, 5);
+					//$("#currentPage").val(page);
+					
+					$("#wPaginate8_contents").html('Yay, you have reached page ' + page + ', and index ' + page*this.settings.limit);
+				}
+				
+			});
+			
+		function destroy_pag()
+		{
+			//console.log($('#wPaginate1').data('_wPaginate'));
+			$('#wPaginate1').wPaginate('destroy');
+			//console.log($('#wPaginate1').data('_wPaginate'));
+			//app//Rest/jobList/"
+		}
+		//RestPost(currentPage, 15);
+	}); */
+</script>
+</head>
+<body>
+<input type="text" id="currentPage" value="0"/>
+<input type="text" id="tot" value="0"/>
+	
+		
+
+	<h3>Ajax Demo</h3>
+
+	
+	<div id="list"></div>
+	<div id="wPaginate7"></div>
+	<div id="wPaginate8_contents"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

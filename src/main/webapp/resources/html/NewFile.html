@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="http://jquery.com/jquery-wp-content/themes/jquery.com/style.css">
+<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery/jquery.paging.min.js"></script>
+<style type="text/css">
+.hover {
+ background-color: black;
+}
+.test { color: #000; padding: .5em; border: 1px solid #444; }
+.active { color: #900;}
+.inside { background-color: aqua; }
+#paging{text-align:center;}
+a.paging-item,a.paging-side{margin:0 .25em;}
+a.paging-item.selected{font-weight:bold;}
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		jqxhr(1);
+
+	});
+	var jqxhr = function(page){
+		
+		$.ajax({
+			type : "POST",
+			dataType : "json",
+			url : "/app/index.do",
+			data: {'param':'가나다라마바사', 'page':page},
+			success : success,
+			error : error,
+			complete : complete
+		});
+	}
+	var colums = [ 'id', 'panNumber', 'address', 'city', 'state', 'pincode' ];
+	
+	var success = function(json) {
+		$('#list').empty();
+		var item = [];
+		var tot = json.total;
+		var currentPage = json.page;
+		$.each(colums, function(key, val) {
+			item.push('<td id="' +key + '">' + val + '</td>');
+		});
+		$('<table/>', {
+			'class' : 'my-new-list',
+			'id' : 'table-list'
+		}).appendTo('#list');
+		$('<tr/>', {
+			'class' : 'tr-list',
+			html : item.join('')
+		}).appendTo('#table-list');
+		$.each(json.data, function(key, val) {
+			var items = [];
+			$.each(val, function(a, b) {
+				items.push('<td id="' + a+ key + '">' + b + '</td>');
+			});
+			$('<tr/>', {
+				'class' : 'tr-list',
+				html : items.join('')
+			}).appendTo('#table-list');
+		});
+		$('#paging').paging({
+			current:currentPage
+			,item : "a" 
+			,max:tot
+			,onclick:function(e,page){
+				//alert('going to page '+page);
+				jqxhr(page);
+			}
+		});
+		
+	};
+	var error = function(e) { alert("error " + e); };
+	var complete = function(){
+		$(".tr-list").on({
+			  click: function(){
+			    $(this).toggleClass("active");
+			    var id = $(this).children(':first').text();
+			    alert(id);
+			  },
+			  mouseenter: function(){
+			    $(this).addClass("inside");
+			  },
+			  mouseleave: function(){
+			    $(this).removeClass("inside");
+			  }
+		});
+		
+	};
+	
+</script>
+</head>
+<body>
+	<div id="list"></div>
+	<div id="paging"></div>
+</body>
+</html>
