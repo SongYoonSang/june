@@ -23,3 +23,4 @@ insert into JBT_MEM (PAN_NUMBER,ADDRESS,CITY,STATE,PINCODE )values('AABBAABB','A
 insert into JBT_MEM (PAN_NUMBER,ADDRESS,CITY,STATE,PINCODE ) values('BGDBCBDB','Address','LA','St',23500);
 
 http://www.templatemo.com/preview/templatemo_355_work_center       
+http://www.templatemo.com/templates/templatemo_357_slate/
