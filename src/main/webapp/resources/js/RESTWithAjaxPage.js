@@ -63,44 +63,87 @@ var success = function(json) {
 			html : items.join('')
 		}).appendTo('#table-list');
 	});
-	/*$('#paging').paging({
-		current:currentPage
-		,max:tot
-		,onclick:function(e,page){
-			//alert('going to page '+page);
-			RestGet(page);
-		}
-	});*/
+	
 	pageJune(currentPage, tot, pagePer);
 	
 };
+var startPage = 1;
+var pageDiv = "link";
 var pageJune = function(currentPage, tot, pagePer){
 	$('#paging').empty();
-	//var pagePer = 20;
 	if (pagePer ==null){
 		pagePer = 10;
 	}
-	var html = "";
+	var pageSpan = "";
+	
+	var Span = '<span class="_wPaginate_link _wPaginate_link_first"><<</span>'+
+				'<span class="_wPaginate_link _wPaginate_link_prev"><</span>'+
+				'<span class="_wPaginate_link _wPaginate_link_next">></span>'+
+				'<span class="_wPaginate_link _wPaginate_link_last">>></span>';
+	var viewPageSpan = 5;
 	var viewPage = Math.ceil(tot/pagePer);
-	//html = viewPage;
-	for(var i = 1;i<=viewPage;i++){
-		//html+='<a href="#">'+ i +'</a>';
-		//html+= '<input type="button" value="'+i+'" style="cursor:pointer">';
-		html+= '<div class="pageBnt" style="cursor:pointer;width:20px;float:left;">'+i+'</div>';
+	
+	var viewPageSide = Math.floor(viewPageSpan/2);
+	if (pageDiv =="link") startPage = currentPage -viewPageSide;
+	if (startPage < 1) startPage =1;
+	for(var i = startPage;i<(startPage +viewPageSpan);i++){
+		if(i > viewPage ) break;
+		var test = (i === currentPage ? 'active' : null);
+		pageSpan+= '<span class="_wPaginate_link _wPaginate_link_'+test+' _wPaginate_link_pageBtn">'+i+'</span>';
 	}
-	$('#paging').append(html);
-	$(".pageBnt").on({
+	$('#paging').append(Span);
+	$('._wPaginate_link_prev').after(pageSpan);
+	$("._wPaginate_link_pageBtn").on({
 		  click: function(){
-		    $(this).toggleClass("active");
 		    var id = $(this).text();
 		    $("#currentPage").val(id);
+		    pageDiv = "link";
 		    RestPost(id, pagePer);
-		  },
-		  mouseenter: function(){
-		    $(this).addClass("inside");
-		  },
-		  mouseleave: function(){
-		    $(this).removeClass("inside");
+		    
+		  }
+	});
+	$("._wPaginate_link_next").on({
+		  click: function(){
+		    var next = $(this).prev().text();
+		    pageDiv = "link";
+		    if( next == viewPage ) {
+		    	alert("last page!!!");
+		    } else {
+		    var nextPage = parseInt(next) + 1;
+		    startPage = startPage + parseInt(viewPageSpan);
+		    $("#currentPage").val(nextPage);
+		    RestPost(nextPage, pagePer);
+		    }
+		  }
+	});
+	$("._wPaginate_link_prev").on({
+		  click: function(){
+		    var prev = $(this).next().text();
+		    //alert(prev);
+		    if( prev == 1 ) {
+		    	alert("first page!!!");
+		    } else {
+		    var prevPage = parseInt(prev) - 1;
+		    startPage = prev - parseInt(viewPageSpan);
+		    $("#currentPage").val(prevPage);
+		    RestPost(prevPage, pagePer);
+		    }
+		  }
+	});
+	$("._wPaginate_link_first").on({
+		  click: function(){
+			  pageDiv = "first";
+		    startPage = 1;
+		    $("#currentPage").val(1);
+		    RestPost(1, pagePer);
+		  }
+	});
+	$("._wPaginate_link_last").on({
+		  click: function(){
+			pageDiv = "last";
+		    startPage = parseInt(viewPage) -parseInt(viewPageSpan) +1;
+		    $("#currentPage").val(viewPage);
+		    RestPost(viewPage, pagePer);
 		  }
 	});
 };

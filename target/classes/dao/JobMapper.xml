@@ -26,7 +26,6 @@
 			,pincode
 		
 		FROM JBT_MEM
-		where id not in ('22')  
 		ORDER BY id DESC
 		LIMIT #{currentPage}, #{pagePerCount}
 		

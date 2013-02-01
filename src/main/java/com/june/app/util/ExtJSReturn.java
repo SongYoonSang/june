@@ -42,10 +42,10 @@ public class ExtJSReturn {
 		
 		Map<String,Object> modelMap = new HashMap<String,Object>(3);
 		modelMap.put("total", total);
-		modelMap.put("data", domain);
 		modelMap.put("success", true);
 		modelMap.put("page", page);
 		modelMap.put("pagePerCnt", pagePerCnt);
+		modelMap.put("data", domain);
 		
 		return modelMap;
 	}
