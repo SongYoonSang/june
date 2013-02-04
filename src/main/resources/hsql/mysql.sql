@@ -32,3 +32,5 @@ http://www.elegantthemes.com/gallery/category/magazine/
 http://themes.goodlayers.com/?theme=modernize
 http://themeforest.net/item/dandelion-powerful-elegant-wordpress-theme/full_screen_preview/136628
 http://blog.xmlswf.com/top-10-wordpress-premium-themes-free-download-2013/
+http://www.templatemonster.com/website-templates.php
+http://html5templates.com/
